@@ -47,6 +47,7 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Query\Builder|Group withoutTrashed()
  * @property Carbon|null $agreed_at
  * @property string $email
+ * @property string $category
  * @method static Builder|Group whereAgreedAt($value)
  * @method static Builder|Group whereEmail($value)
  */
@@ -62,6 +63,7 @@ class Group extends Model
         'owner',
         'telephone',
         'email',
+        'category',
         'zip_code',
         'address',
         'start_at',

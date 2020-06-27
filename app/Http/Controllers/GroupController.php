@@ -52,6 +52,7 @@ class GroupController extends Controller
             'group.owner' => 'required|max:255',
             'group.telephone' => 'required|numeric|digits_between:8,11',
             'group.email' => 'required|email|max:255',
+            'group.category' => 'required|max:255',
             'group.zip_code' => 'required|numeric|digits:7',
             'group.address' => 'required|max:255',
             'group.agreed' => 'required',

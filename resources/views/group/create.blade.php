@@ -17,13 +17,33 @@
         @csrf
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="group[name]">店舗（支店）・イベント・施設名 <span class="badge badge-danger">必須</span></label>
                     <input id="group[name]" name="group[name]" type="text" value="{{ old('group.name') }}" class="@error('group.name') is-invalid @enderror form-control">
                     @error('group.name')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="group[category]">業種 (選択して下さい) <span class="badge badge-danger">必須</span></label>
+                    <select id="group[category]" name="group[category]" class="form-control">
+                        <option>県有施設</option>
+                        <option>市町村施設</option>
+                        <option>飲食店</option>
+                        <option>劇場・映画館・ライブハウス</option>
+                        <option>パチンコ店・ゲームセンター</option>
+                        <option>カラオケ店</option>
+                        <option>ホテル・旅館・宿泊施設</option>
+                        <option>百貨店・スーパー・小売業</option>
+                        <option>理容室・美容室</option>
+                        <option>医療機関</option>
+                        <option>スポーツ施設</option>
+                        <option>集会場・展示施設</option>
+                        <option>その他</option>
+                    </select>
                 </div>
             </div>
         </div>
