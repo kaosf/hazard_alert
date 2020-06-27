@@ -14,7 +14,7 @@ class AddCategoryToGroup extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            //
+            $table->string('category')->nullable()->after('email');
         });
     }
 
@@ -26,7 +26,7 @@ class AddCategoryToGroup extends Migration
     public function down()
     {
         Schema::table('groups', function (Blueprint $table) {
-            //
+            $table->dropColumn('category');
         });
     }
 }
