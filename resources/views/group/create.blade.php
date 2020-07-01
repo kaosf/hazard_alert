@@ -28,8 +28,9 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="group[category]">業種 (選択して下さい) <span class="badge badge-danger">必須</span></label>
+                    <label for="group[category]">業種 <span class="badge badge-danger">必須</span></label>
                     <select id="group[category]" name="group[category]" class="form-control">
+                        <option>--選択して下さい--</option>
                         <option>県有施設</option>
                         <option>市町村施設</option>
                         <option>飲食店</option>
