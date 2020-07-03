@@ -30,21 +30,24 @@
                 <div class="form-group">
                     <label for="group[category]">業種 <span class="badge badge-danger">必須</span></label>
                     <select id="group[category]" name="group[category]" class="form-control">
-                        <option>--選択して下さい--</option>
-                        <option>県有施設</option>
-                        <option>市町村施設</option>
-                        <option>飲食店</option>
-                        <option>劇場・映画館・ライブハウス</option>
-                        <option>パチンコ店・ゲームセンター</option>
-                        <option>カラオケ店</option>
-                        <option>ホテル・旅館・宿泊施設</option>
-                        <option>百貨店・スーパー・小売業</option>
-                        <option>理容室・美容室</option>
-                        <option>医療機関</option>
-                        <option>スポーツ施設</option>
-                        <option>集会場・展示施設</option>
-                        <option>その他</option>
+                        <option value="">--選択して下さい--</option>
+                        <option value="県有施設"                   @if(old('group.category') == "県有施設"                  ) selected @endif>県有施設</option>
+                        <option value="市町村施設"                 @if(old('group.category') == "市町村施設"                ) selected @endif>市町村施設</option>
+                        <option value="飲食店"                     @if(old('group.category') == "飲食店"                    ) selected @endif>飲食店</option>
+                        <option value="劇場・映画館・ライブハウス" @if(old('group.category') == "劇場・映画館・ライブハウス") selected @endif>劇場・映画館・ライブハウス</option>
+                        <option value="パチンコ店・ゲームセンター" @if(old('group.category') == "パチンコ店・ゲームセンター") selected @endif>パチンコ店・ゲームセンター</option>
+                        <option value="カラオケ店"                 @if(old('group.category') == "カラオケ店"                ) selected @endif>カラオケ店</option>
+                        <option value="ホテル・旅館・宿泊施設"     @if(old('group.category') == "ホテル・旅館・宿泊施設"    ) selected @endif>ホテル・旅館・宿泊施設</option>
+                        <option value="百貨店・スーパー・小売業"   @if(old('group.category') == "百貨店・スーパー・小売業"  ) selected @endif>百貨店・スーパー・小売業</option>
+                        <option value="理容室・美容室"             @if(old('group.category') == "理容室・美容室"            ) selected @endif>理容室・美容室</option>
+                        <option value="医療機関"                   @if(old('group.category') == "医療機関"                  ) selected @endif>医療機関</option>
+                        <option value="スポーツ施設"               @if(old('group.category') == "スポーツ施設"              ) selected @endif>スポーツ施設</option>
+                        <option value="集会場・展示施設"           @if(old('group.category') == "集会場・展示施設"          ) selected @endif>集会場・展示施設</option>
+                        <option value="その他"                     @if(old('group.category') == "その他"                    ) selected @endif>その他</option>
                     </select>
+                    @error('group.category')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>
