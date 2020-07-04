@@ -184,6 +184,7 @@ class GroupController extends Controller
     public function select2Search(Request $request){
         $rule = [
             'q' => 'max:255',
+            'category' => 'max:255',
             'group_id' => 'exists:App\Group,id'
         ];
         $request->validate($rule);
@@ -192,7 +193,11 @@ class GroupController extends Controller
         } elseif (!empty($request->input('q'))) {
             $groups = Group::where('name', 'LIKE', '%' . $request->input('q') . '%')->get();
         } else {
-            $groups = Group::all();
+            if (empty($request->input('category'))) {
+                $groups = Group::all();
+            } else {
+                $groups = Group::where('category', $request->input('category'))->get();
+            }
         }
         return response()->json(['groups' => $groups]);
     }

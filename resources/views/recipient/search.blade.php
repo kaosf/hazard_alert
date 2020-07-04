@@ -18,8 +18,8 @@ use phpDocumentor\Reflection\Types\Collection;
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="group">店舗・イベント名等</label>
-                    <select class="form-control select2" name="search[group_id]" class="@error('search.group_id') is-invalid @enderror form-control">
+                    <label for="group">店舗・イベント名等 <span class="badge badge-danger">必須</span></label>
+                    <select id="groupSelect" class="form-control select2" name="search[group_id]" class="@error('search.group_id') is-invalid @enderror form-control">
                         <option></option>
                     </select>
                     @error('search.group_id')
@@ -55,6 +55,22 @@ use phpDocumentor\Reflection\Types\Collection;
                     <p id="address"></p>
                     <p id="telephone"></p>
                     <p id="category"></p>
+                    <p id="owner"></p>
+                    <p id="email"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="category">業種</label>
+                    <select id="categorySelect" class="form-control" name="search[category]" class="@error('search.category') is-invalid @enderror form-control">
+                        <option value="">指定なし</option>
+                        @foreach (App\Group::CATEGORIES as $category)
+                            <option value="{{ $category }}">{{ $category }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
@@ -149,6 +165,7 @@ use phpDocumentor\Reflection\Types\Collection;
                     data: (params) => {
                         return {
                             q: params.term,
+                            category: $('#categorySelect').val(),
                         }
                     },
                     processResults: (data, params) => {
@@ -191,7 +208,7 @@ use phpDocumentor\Reflection\Types\Collection;
         });
 
         $(function() {
-            $('select').change(function() {
+            $('#groupSelect').change(function() {
                 let group_id = $("option:selected", this).val();
                 $.ajax({
                     url:'/group/select2_search?group_id=' + group_id,
