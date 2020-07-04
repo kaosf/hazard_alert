@@ -18,17 +18,41 @@ use phpDocumentor\Reflection\Types\Collection;
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="group">店舗・イベント名等 <span class="badge badge-danger">必須</span></label>
+                    <label for="group">店舗・イベント名等</label>
                     <select class="form-control select2" name="search[group_id]" class="@error('search.group_id') is-invalid @enderror form-control">
                         <option></option>
                     </select>
                     @error('search.group_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
+                    <div class="alert alert-danger">店舗名・イベント名・会場名 または 業種のどちらかは必ず指定してください。</div>
                     @enderror
                 </div>
                 <div id="group_info" style="display: none">
                     <p id="address"></p>
                     <p id="telephone"></p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-2">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="category">業種</label>
+                    <select class="form-control" name="search[category]" class="@error('search.category') is-invalid @enderror form-control">
+                        <option value=""></option>
+                        @foreach (App\Group::CATEGORIES as $category)
+                            <option value="{{ $category }}">{{ $category }}</option>
+                        @endforeach
+                    </select>
+                    @error('search.category')
+                    <div class="alert alert-danger">店舗名・イベント名・会場名 または 業種のどちらかは必ず指定してください。</div>
+                    @enderror
+                </div>
+                <div id="group_info" style="display: none">
+                    <p id="address"></p>
+                    <p id="telephone"></p>
+                    <p id="category"></p>
                 </div>
             </div>
         </div>
