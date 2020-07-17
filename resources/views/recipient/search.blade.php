@@ -29,6 +29,8 @@ use phpDocumentor\Reflection\Types\Collection;
                 <div id="group_info" style="display: none">
                     <p id="address"></p>
                     <p id="telephone"></p>
+                    <p id="owner"></p>
+                    <p id="email"></p>
                 </div>
             </div>
         </div>
@@ -197,6 +199,8 @@ use phpDocumentor\Reflection\Types\Collection;
                             for(let i = 0; i < groups_len; i++){
                                 $('p#address').text("住所　　：" + groups[i].address);
                                 $('p#telephone').text("電話番号：" + groups[i].telephone);
+                                $('p#owner').text("担当者：" + groups[i].owner);
+                                $('p#email').text("メールアドレス：" + groups[i].email);
                                 $('#group_info').show();
                             }
                         }
