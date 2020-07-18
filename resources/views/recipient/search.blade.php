@@ -97,6 +97,12 @@ use phpDocumentor\Reflection\Types\Collection;
         @endif
 
     @endif
+
+    <hr>
+
+        <a href="/recipient/download_groups">全施設CSVダウンロード</a>
+
+
 @endsection
 
 @section('scripts')

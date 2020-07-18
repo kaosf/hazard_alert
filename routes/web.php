@@ -36,4 +36,5 @@ Route::middleware('auth.basic')->group(function () {
     Route::post('recipient/search', 'RecipientController@search');
     Route::post('recipient/download', 'RecipientController@download');
     Route::get('group/select2_search', 'GroupController@select2Search');
+    Route::get('recipient/download_groups', 'RecipientController@downloadGroups');
 });
