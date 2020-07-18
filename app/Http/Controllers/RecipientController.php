@@ -265,6 +265,34 @@ class RecipientController extends Controller
         exit;
     }
 
+    /**
+     * Groupリストダウンロード
+     */
+    public function downloadGroups(){
+        // 全Group取得
+        $groups = Group::all();
+
+        // csvファイルとして出力
+        $text = '"店舗・イベント名等","業種","担当者指名","連絡先電話番号","担当者メールアドレス","郵便番号","住所","開始","終了","登録日"' . PHP_EOL;
+        foreach ($groups as $group) {
+            $text .= '"' . str_replace('"', '""', $group->name) . '","'
+                . str_replace('"', '""', $group->category) . '","'
+                . str_replace('"', '""', $group->owner) . '","'
+                . $group->telephone . '","'
+                . $group->email . '","'
+                . $group->zip_code . '","'
+                . str_replace('"', '""', $group->address) . '","'
+                . $group->start_at . '","'
+                . $group->end_at . '","'
+                . $group->created_at . '"' . PHP_EOL;
+        }
+        $file_name = 'groups_' . now()->format('YmdHis') . '.csv';
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $file_name .'"');
+        echo mb_convert_encoding($text, 'SJIS', 'UTF-8');
+        exit;
+    }
+
 
     /**
      * HTTPでのアクセスか否かを判定
