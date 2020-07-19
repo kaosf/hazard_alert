@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Throwable;
 
@@ -164,60 +163,24 @@ class RecipientController extends Controller
      * @return Application|Factory|View
      */
     public function search(Request $request){
-        if (!empty($request->get('search')['group_id'])) {
-            $searchWithGroupId = true;
-        } elseif (!empty($request->get('search')['category'])) {
-            $searchWithGroupId = false;
-        } else {
-            $request->validate([
-                'search.group_id' => 'required',
-                'search.category' => 'required',
-            ]);
-            return view('recipient/search');
-        }
-
         // バリデーションチェック
-        if ($searchWithGroupId) {
-            $request->validate([
-                'search.group_id' => 'required|exists:App\Group,id',
-                'search.start_at' => 'nullable|date|required_with:search.end_at',
-                'search.end_at' => 'nullable|date|after:search.start_at|required_with:search.start_at'
-            ]);
-        } elseif (empty($data['group_id'])) {
-            $request->validate([
-                'search.category' => ['required', Rule::in(Group::CATEGORIES)],
-                'search.start_at' => 'nullable|date|required_with:search.end_at',
-                'search.end_at' => 'nullable|date|after:search.start_at|required_with:search.start_at'
-            ]);
-            // TODO: どちらにも start_at end_at の validation があり無駄 要修正
-        }
+        $request->validate([
+            'search.group_id' => 'required|exists:App\Group,id',
+            'search.start_at' => 'nullable|date|required_with:search.end_at',
+            'search.end_at' => 'nullable|date|after:search.start_at|required_with:search.start_at'
+        ]);
         $data = $request->get('search');
 
         // メールアドレスリストの件数取得
-        if ($searchWithGroupId) {
-            $group = Group::withCount(['recipients' => function ($query) use ($data){
-                if (!empty($data['start_at'])){
-                    $query->where('created_at', '>=', $data['start_at']);
-                    $query->where('created_at', '<=', $data['end_at']);
-                }
-            }])->findOrFail($data['group_id']);
-        } else {
-            $group = Group::withCount(['recipients' => function ($query) use ($data){
-                $query->where('category', $data['category']);
-                if (!empty($data['start_at'])){
-                    $query->where('created_at', '>=', $data['start_at']);
-                    $query->where('created_at', '<=', $data['end_at']);
-                }
-            }])->findOrFail($data['group_id']);
-            // TODO: どちらにも start_at end_at の query build があり無駄 要修正
-        }
+        $group = Group::withCount(['recipients' => function ($query) use ($data){
+            if (!empty($data['start_at'])){
+                $query->where('created_at', '>=', $data['start_at']);
+                $query->where('created_at', '<=', $data['end_at']);
+            }
+        }])->findOrFail($data['group_id']);
 
         $groups = Group::all();
-        if ($searchWithGroupId) {
-            $data['group_name'] = $group->name;
-        } else {
-            $data['group_name'] = '';
-        }
+        $data['group_name'] = $group->name;
         return view('recipient/search', [
             'groups' => $groups,
             'searched' => $data,
