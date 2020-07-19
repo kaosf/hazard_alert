@@ -208,7 +208,7 @@ class RecipientController extends Controller
                     $query->where('created_at', '>=', $data['start_at']);
                     $query->where('created_at', '<=', $data['end_at']);
                 }
-            }])->find($data['group_id']);
+            }])->findOrFail($data['group_id']);
             // TODO: どちらにも start_at end_at の query build があり無駄 要修正
         }
 
