@@ -153,6 +153,7 @@ return [
     'attributes' => [
         'group.name' => '店舗（支店）・イベント・施設名',
         'group.owner' => '担当者氏名',
+        'group.category' => '業種',
         'group.telephone' => '連絡先電話番号',
         'group.email' => '担当者メールアドレス',
         'group.zip_code' => '郵便番号',
